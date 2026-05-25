@@ -696,24 +696,63 @@ function buildMatrix(items, getValue, ns) {
 // ═══════════════════════════════════════════════════════════════════
 // SUBMIT
 // ═══════════════════════════════════════════════════════════════════
-function submitKuesioner() {
+async function submitKuesioner() {
+
   // collect alasan
-  KR_PAIRS.forEach(([li,ri]) => {
-    const key=`${li}_${ri}`;
+  KRPAIRS.forEach(([li,ri]) => {
+    const key=`${li}${ri};
     if(!answers.kriteria[key]) answers.kriteria[key]={};
-    answers.kriteria[key].alasan = document.getElementById(`alasan_kriteria_${key}`)?.value?.trim();
+    answers.kriteria[key].alasan =
+      document.getElementById(alasankriteria${key})?.value?.trim();
   });
+
   KRITERIA.forEach((_,ki) => {
-    const ns=`alt_k${ki}`;
+    const ns=alt_k${ki};
+
     ALT_PAIRS.forEach(([li,ri]) => {
-      const key=`${li}_${ri}`;
-      if(!answers.alternatif[ns]) answers.alternatif[ns]={};
-      if(!answers.alternatif[ns][key]) answers.alternatif[ns][key]={};
-      answers.alternatif[ns][key].alasan = document.getElementById(`alasan_${ns}_${key}`)?.value?.trim();
+      const key=${li}${ri};
+
+      if(!answers.alternatif[ns])
+        answers.alternatif[ns]={};
+
+      if(!answers.alternatif[ns][key])
+        answers.alternatif[ns][key]={};
+
+      answers.alternatif[ns][key].alasan =
+        document.getElementById(alasan${ns}_${key}`)?.value?.trim();
     });
   });
-  goTo(5);
-  showToast('Kuesioner berhasil dikirim! Terima kasih.');
+
+  // data final
+  const data = {
+    identitas: {
+      nama: document.getElementById('id_nama').value,
+      jabatan: document.getElementById('id_jabatan').value,
+      instansi: document.getElementById('id_instansi').value,
+      pengalaman: document.getElementById('id_pengalaman').value,
+      lean_exp: document.getElementById('id_lean_exp').value,
+      pendidikan: document.getElementById('id_pendidikan').value,
+    },
+    answers: answers,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+
+    await fetch("https://script.google.com/macros/s/AKfycbxACoPqbn0AdqystyVtleEl1StVozP7elSYHDB__bMlF42CQ1gvHFIuKk3wLuvW3WxiVQ/exec", {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+
+    goTo(5);
+    showToast('Kuesioner berhasil dikirim!');
+
+  } catch(err) {
+
+    console.error(err);
+    showToast('Gagal mengirim data');
+
+  }
 }
 
 function downloadJSON() {
