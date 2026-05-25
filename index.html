@@ -698,28 +698,38 @@ function buildMatrix(items, getValue, ns) {
 // ═══════════════════════════════════════════════════════════════════
 async function submitKuesioner() {
 
-  // collect alasan
+  // collect alasan kriteria
   KRPAIRS.forEach(([li,ri]) => {
-    const key=`${li}${ri};
-    if(!answers.kriteria[key]) answers.kriteria[key]={};
+    const key = `${li}${ri};
+
+    if(!answers.kriteria[key]) {
+      answers.kriteria[key] = {};
+    }
+
     answers.kriteria[key].alasan =
       document.getElementById(alasankriteria${key})?.value?.trim();
   });
 
+  // collect alasan alternatif
   KRITERIA.forEach((_,ki) => {
-    const ns=alt_k${ki};
+
+    const ns = alt_k${ki};
 
     ALT_PAIRS.forEach(([li,ri]) => {
-      const key=${li}${ri};
 
-      if(!answers.alternatif[ns])
-        answers.alternatif[ns]={};
+      const key = ${li}${ri};
 
-      if(!answers.alternatif[ns][key])
-        answers.alternatif[ns][key]={};
+      if(!answers.alternatif[ns]) {
+        answers.alternatif[ns] = {};
+      }
+
+      if(!answers.alternatif[ns][key]) {
+        answers.alternatif[ns][key] = {};
+      }
 
       answers.alternatif[ns][key].alasan =
         document.getElementById(alasan${ns}_${key}`)?.value?.trim();
+
     });
   });
 
