@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuesioner AHP – Strategi Lean Construction</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a2e4a;
+  --blue: #2563a8;
+  --sky:  #4a9fd4;
+  --pale: #e8f2fb;
+  --pale2:#f4f8fd;
+  --gold: #c8a84b;
+  --light:#f0f6ff;
+  --text: #1e2d3d;
+  --muted:#6b7e93;
+  --white:#ffffff;
+  --border:#ccdae8;
+  --radius:12px;
+  --shadow:0 4px 24px rgba(26,46,74,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3',sans-serif;background:#e6eef8;color:var(--text);min-height:100vh}
+
+/* ── layout ── */
+.wrapper{max-width:860px;margin:0 auto;padding:28px 16px 60px}
+
+/* ── hero ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#25487a 60%,#1e5a96 100%);border-radius:20px;padding:48px 40px 40px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hero::after{content:'';position:absolute;bottom:-40px;left:20px;width:160px;height:160px;border-radius:50%;background:rgba(74,159,212,.12)}
+.hero-badge{display:inline-block;background:rgba(200,168,75,.2);border:1px solid rgba(200,168,75,.5);color:var(--gold);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,32px);color:#fff;line-height:1.3;margin-bottom:10px}
+.hero h1 span{color:var(--gold)}
+.hero p{color:rgba(255,255,255,.72);font-size:14px;line-height:1.7;max-width:560px}
+.progress-bar-wrap{margin-top:28px;background:rgba(255,255,255,.15);border-radius:20px;height:6px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),#e8c46a);border-radius:20px;transition:width .5s ease;width:0%}
+.progress-label{margin-top:8px;font-size:12px;color:rgba(255,255,255,.6)}
+
+/* ── card ── */
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 32px;margin-bottom:20px;border:1px solid rgba(200,220,240,.6)}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card-title .icon{width:32px;height:32px;border-radius:8px;background:var(--pale);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.card-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+
+/* ── section label ── */
+.section-header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:10px;padding:16px 22px;margin-bottom:24px}
+.section-header h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600}
+.section-header p{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px}
+
+/* ── identity form ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+input,select,textarea{font-family:'Source Sans 3',sans-serif;font-size:14px;color:var(--text);border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;outline:none;transition:border-color .2s,box-shadow .2s;background:var(--pale2)}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,168,.12);background:#fff}
+textarea{resize:vertical;min-height:60px}
+
+/* ── skala referensi ── */
+.scale-ref{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px}
+.scale-ref-item{flex:1;text-align:center;padding:6px 4px;background:var(--pale2);border-right:1px solid var(--border);font-size:10px;color:var(--muted)}
+.scale-ref-item:last-child{border-right:none}
+.scale-ref-item strong{display:block;font-size:13px;color:var(--navy);font-weight:700}
+.scale-ref-item.center-item{background:var(--pale);color:var(--navy)}
+
+/* ── pairwise widget ── */
+.pw-wrap{margin-bottom:28px;padding:22px;background:var(--pale2);border-radius:12px;border:1px solid var(--border)}
+.pw-qnum{font-size:11px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.pw-question{font-size:14px;color:var(--muted);margin-bottom:16px;font-style:italic}
+.pw-labels{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:10px}
+.pw-label-left,.pw-label-right{font-size:13px;font-weight:600;color:var(--navy);padding:10px 14px;background:#fff;border-radius:8px;border:1.5px solid var(--border);line-height:1.4}
+.pw-label-left{text-align:right}
+.pw-label-right{text-align:left}
+.pw-vs{font-size:11px;font-weight:700;color:var(--muted);text-align:center;background:var(--pale);border-radius:6px;padding:4px 8px}
+/* scale buttons */
+.pw-scale{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.scale-btn{width:40px;height:40px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;position:relative}
+.scale-btn .scale-side{font-size:7px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.scale-btn:hover{border-color:var(--sky);color:var(--sky);transform:translateY(-2px);box-shadow:0 4px 12px rgba(74,159,212,.2)}
+.scale-btn.selected-left{background:var(--blue);border-color:var(--blue);color:#fff}
+.scale-btn.selected-left .scale-side{color:rgba(255,255,255,.7)}
+.scale-btn.selected-right{background:var(--sky);border-color:var(--sky);color:#fff}
+.scale-btn.selected-right .scale-side{color:rgba(255,255,255,.7)}
+.scale-btn.center-btn{background:var(--pale);border-color:var(--border)}
+.scale-btn.center-btn.selected-left,.scale-btn.center-btn.selected-right{background:#6b8fa8;border-color:#6b8fa8;color:#fff}
+.scale-legend{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:10px;padding:0 2px}
+/* alasan */
+.pw-alasan label{font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:5px}
+.pw-alasan label::after{content:'*';color:#e05252}
+.pw-alasan textarea{width:100%;font-size:13px;margin-top:5px;background:#fff}
+.pw-status{height:3px;border-radius:3px;margin-top:12px;background:var(--border);overflow:hidden}
+.pw-status-bar{height:100%;width:0%;background:var(--gold);border-radius:3px;transition:width .3s}
+.pw-status-bar.done{background:#4caf50;width:100%}
+
+/* ── sub-section per kriteria ── */
+.kriteria-section{margin-bottom:36px}
+.kriteria-badge{display:inline-flex;align-items:center;gap:8px;background:var(--pale);border:1.5px solid var(--blue);border-radius:8px;padding:8px 16px;margin-bottom:16px}
+.kriteria-badge .kode{background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px}
+.kriteria-badge .nama{font-size:13px;font-weight:600;color:var(--navy)}
+
+/* ── btn ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;box-shadow:0 4px 14px rgba(26,46,74,.25)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,46,74,.35)}
+.btn-secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.btn-secondary:hover{background:var(--pale)}
+.btn-block{width:100%;justify-content:center;padding:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+/* ── steps nav ── */
+.steps{display:flex;gap:0;margin-bottom:28px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.step{flex:1;padding:10px 6px;text-align:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;cursor:default;border-right:1px solid var(--border);transition:all .2s}
+.step:last-child{border-right:none}
+.step.active{background:var(--navy);color:#fff}
+.step.done{background:var(--pale);color:var(--blue)}
+.step-num{display:block;font-size:14px;font-weight:700;margin-bottom:2px}
+
+/* ── page sections ── */
+.page{display:none}
+.page.active{display:block}
+
+/* ── result ── */
+.result-section{margin-bottom:24px}
+.result-table{width:100%;border-collapse:collapse;font-size:13px}
+.result-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left}
+.result-table td{padding:9px 14px;border-bottom:1px solid var(--border)}
+.result-table tr:nth-child(even) td{background:var(--pale2)}
+.result-matrix{width:100%;border-collapse:collapse;font-size:12px;text-align:center}
+.result-matrix th,.result-matrix td{border:1px solid var(--border);padding:7px 10px}
+.result-matrix th{background:var(--navy);color:#fff}
+.result-matrix td.diag{background:var(--pale);font-weight:700;color:var(--navy)}
+.result-matrix td.val-left{background:#e8f2fb;color:var(--blue);font-weight:600}
+.result-matrix td.val-right{background:#fef9e7;color:#a0760a;font-weight:600}
+.chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.chip-gold{background:#fef3cd;color:#a0760a}
+.chip-blue{background:var(--pale);color:var(--blue)}
+
+/* ── toast ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ── misc ── */
+.req-note{font-size:11px;color:#e05252;margin-top:6px}
+.italic-note{font-size:12px;color:var(--muted);font-style:italic}
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .hero{padding:32px 20px 28px}
+  .card{padding:20px 16px}
+  .pw-labels{grid-template-columns:1fr;gap:4px}
+  .pw-label-left{text-align:left}
+  .scale-btn{width:34px;height:34px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Penelitian AHP · Lean Construction</div>
+  <h1>Strategi Prioritas<br>Peningkatan <span>Lean Construction</span></h1>
+  <p>Kuesioner perbandingan berpasangan (pairwise comparison) untuk menentukan urutan prioritas strategi implementasi Lean Construction menggunakan metode Analytic Hierarchy Process (AHP).</p>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">Belum dimulai</div>
+</div>
+
+<!-- STEPS -->
+<div class="steps">
+  <div class="step active" id="step0"><span class="step-num">①</span>Pengantar</div>
+  <div class="step" id="step1"><span class="step-num">②</span>Identitas</div>
+  <div class="step" id="step2"><span class="step-num">③</span>Kriteria</div>
+  <div class="step" id="step3"><span class="step-num">④</span>Alternatif</div>
+  <div class="step" id="step4"><span class="step-num">⑤</span>Hasil</div>
+</div>
+
+<!-- ═══ PAGE 0 – PENGANTAR ═══ -->
+<div class="page active" id="page0">
+  <div class="card">
+    <div class="card-title"><div class="icon">📋</div>Pengantar Penelitian</div>
+    <div class="card-sub">Mohon baca pengantar berikut sebelum mengisi kuesioner.</div>
+    <hr class="divider">
+    <p style="font-size:14px;line-height:1.8;margin-bottom:14px">Dengan hormat, saya mahasiswa yang sedang melaksanakan penelitian dengan judul:</p>
+    <div style="background:var(--pale);border-left:4px solid var(--blue);padding:14px 18px;border-radius:0 8px 8px 0;margin-bottom:16px">
+      <p style="font-size:14px;font-weight:600;color:var(--navy);font-style:italic">"Strategi Prioritas untuk Peningkatan Penerapan Lean Construction pada Proyek Konstruksi"</p>
+    </div>
+    <p style="font-size:13px;line-height:1.8;color:var(--muted);margin-bottom:12px">Penelitian ini menggunakan metode <strong>Analytic Hierarchy Process (AHP)</strong> untuk menentukan urutan prioritas strategi implementasi Lean Construction berdasarkan penilaian para pakar dan praktisi yang berpengalaman di bidang konstruksi.</p>
+    <p style="font-size:13px;line-height:1.8;color:var(--muted);margin-bottom:12px">Kuesioner ini bertujuan mengumpulkan data <strong>perbandingan berpasangan (pairwise comparison)</strong> antara kriteria dan alternatif strategi yang telah diidentifikasi melalui kajian literatur. <em>Tidak ada jawaban yang benar atau salah</em> — penilaian didasarkan pada pengalaman dan pertimbangan profesional Bapak/Ibu/Saudara/i.</p>
+    <hr class="divider">
+    <div class="section-header" style="margin-bottom:16px">
+      <h2>📐 Struktur Hierarki Penelitian</h2>
+      <p>Tujuan, kriteria, dan alternatif yang digunakan</p>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px"><strong style="color:var(--navy)">Tujuan Utama:</strong> Menentukan strategi prioritas peningkatan implementasi Lean Construction</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:var(--pale2);border-radius:8px;padding:14px;border:1px solid var(--border)">
+        <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Kriteria Faktor Pendukung</div>
+        <div style="font-size:12px;line-height:1.9;color:var(--navy)">
+          <span style="background:var(--blue);color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;font-size:10px;margin-right:4px">K1</span>Komitmen Manajemen & Kepemimpinan<br>
+          <span style="background:var(--blue);color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;font-size:10px;margin-right:4px">K2</span>Pemahaman Lean Construction<br>
+          <span style="background:var(--blue);color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;font-size:10px;margin-right:4px">K3</span>Komunikasi & Kolaborasi Antarpihak<br>
+          <span style="background:var(--blue);color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;font-size:10px;margin-right:4px">K4</span>Budaya Kerja Berbasis Continuous Improvement
+        </div>
+      </div>
+      <div style="background:var(--pale2);border-radius:8px;padding:14px;border:1px solid var(--border)">
+        <div style="font-size:11px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Alternatif Strategi</div>
+        <div style="font-size:12px;line-height:1.9;color:var(--navy)">
+          <span style="background:var(--sky);color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;font-size:10px;margin-right:4px">A1</span>Sosialisasi & Pelatihan Lean Construction<br>
+          <span style="background:var(--sky);color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;font-size:10px;margin-right:4px">A2</span>Penerapan Sistem Koordinasi Rutin Proyek<br>
+          <span style="background:var(--sky);color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;font-size:10px;margin-right:4px">A3</span>Evaluasi & Perbaikan Proses Berkelanjutan
+        </div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="section-header" style="margin-bottom:12px">
+      <h2>📏 Skala Penilaian AHP (Saaty, 1980)</h2>
+    </div>
+    <div class="scale-ref" style="flex-wrap:wrap">
+      <div class="scale-ref-item"><strong>9</strong>Mutlak lebih penting</div>
+      <div class="scale-ref-item"><strong>7</strong>Sangat lebih penting</div>
+      <div class="scale-ref-item"><strong>5</strong>Lebih penting</div>
+      <div class="scale-ref-item"><strong>3</strong>Sedikit lebih penting</div>
+      <div class="scale-ref-item center-item"><strong>1</strong>Sama penting</div>
+      <div class="scale-ref-item"><strong>3</strong>Sedikit lebih penting</div>
+      <div class="scale-ref-item"><strong>5</strong>Lebih penting</div>
+      <div class="scale-ref-item"><strong>7</strong>Sangat lebih penting</div>
+      <div class="scale-ref-item"><strong>9</strong>Mutlak lebih penting</div>
+    </div>
+    <p class="italic-note" style="margin-top:8px">Nilai 2, 4, 6, 8 digunakan sebagai nilai kompromi di antara dua penilaian yang berdekatan.</p>
+    <hr class="divider">
+    <div style="display:flex;justify-content:flex-end">
+      <button class="btn btn-primary" onclick="goTo(1)">Mulai Mengisi Kuesioner →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 1 – IDENTITAS ═══ -->
+<div class="page" id="page1">
+  <div class="card">
+    <div class="card-title"><div class="icon">👤</div>Identitas Responden</div>
+    <div class="card-sub">Mohon lengkapi data berikut. Informasi ini bersifat rahasia dan hanya digunakan untuk keperluan penelitian.</div>
+    <hr class="divider">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Nama Lengkap <span style="color:#e05252">*</span></label>
+        <input type="text" id="id_nama" placeholder="Masukkan nama lengkap">
+      </div>
+      <div class="form-group">
+        <label>Jabatan / Posisi <span style="color:#e05252">*</span></label>
+        <input type="text" id="id_jabatan" placeholder="Contoh: Project Manager">
+      </div>
+      <div class="form-group">
+        <label>Instansi / Perusahaan <span style="color:#e05252">*</span></label>
+        <input type="text" id="id_instansi" placeholder="Nama perusahaan/instansi">
+      </div>
+      <div class="form-group">
+        <label>Pengalaman Kerja di Bidang Konstruksi <span style="color:#e05252">*</span></label>
+        <select id="id_pengalaman">
+          <option value="">-- Pilih --</option>
+          <option>< 5 tahun</option>
+          <option>5 – 10 tahun</option>
+          <option>11 – 20 tahun</option>
+          <option>> 20 tahun</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pengalaman dengan Lean Construction <span style="color:#e05252">*</span></label>
+        <select id="id_lean_exp">
+          <option value="">-- Pilih --</option>
+          <option>Pernah – sebagai pelaksana</option>
+          <option>Pernah – sebagai pengawas / manajer</option>
+          <option>Pernah – sebagai konsultan / peneliti</option>
+          <option>Belum pernah, tetapi mengetahui konsepnya</option>
+          <option>Belum pernah</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pendidikan Terakhir <span style="color:#e05252">*</span></label>
+        <select id="id_pendidikan">
+          <option value="">-- Pilih --</option>
+          <option>D3 / Diploma</option>
+          <option>S1 / Sarjana</option>
+          <option>S2 / Magister</option>
+          <option>S3 / Doktor</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+    </div>
+    <hr class="divider">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <button class="btn btn-secondary" onclick="goTo(0)">← Kembali</button>
+      <button class="btn btn-primary" onclick="validateIdentity()">Lanjut ke Perbandingan Kriteria →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 2 – KRITERIA ═══ -->
+<div class="page" id="page2">
+  <div class="card">
+    <div class="section-header">
+      <h2>BAGIAN I — Perbandingan Berpasangan Antarkriteria</h2>
+      <p>Manakah yang lebih penting dalam mendukung peningkatan implementasi Lean Construction? (6 pasangan)</p>
+    </div>
+    <div style="background:var(--pale);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:12px;color:var(--navy);line-height:1.7">
+      <strong>Cara mengisi:</strong> Pilih angka di <strong>sisi kiri</strong> jika elemen kiri lebih penting, atau di <strong>sisi kanan</strong> jika elemen kanan lebih penting. Angka <strong>1</strong> (tengah) berarti keduanya sama penting. Angka yang lebih besar menunjukkan tingkat kepentingan yang lebih tinggi.<br>
+      <strong>Kolom alasan wajib diisi</strong> — tuliskan pertimbangan profesional Anda secara singkat.
+    </div>
+    <div id="kriteriaQuestions"></div>
+    <hr class="divider">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Kembali</button>
+      <button class="btn btn-primary" onclick="validateKriteria()">Lanjut ke Perbandingan Alternatif →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 3 – ALTERNATIF ═══ -->
+<div class="page" id="page3">
+  <div class="card">
+    <div class="section-header">
+      <h2>BAGIAN II — Perbandingan Alternatif Berdasarkan Tiap Kriteria</h2>
+      <p>Berdasarkan masing-masing kriteria, strategi manakah yang lebih diprioritaskan? (4 kriteria × 3 pasang = 12 pertanyaan)</p>
+    </div>
+    <div style="background:var(--pale);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:12px;color:var(--navy);line-height:1.7">
+      <strong>Cara mengisi:</strong> Untuk setiap kriteria yang diberikan, bandingkan dua alternatif strategi dan tentukan mana yang lebih diprioritaskan serta seberapa besar perbedaannya. <strong>Kolom alasan wajib diisi.</strong>
+    </div>
+    <div id="alternatifQuestions"></div>
+    <hr class="divider">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <button class="btn btn-secondary" onclick="goTo(2)">← Kembali</button>
+      <button class="btn btn-primary" onclick="validateAlternatif()">Lihat Ringkasan & Kirim →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 4 – HASIL ═══ -->
+<div class="page" id="page4">
+  <div class="card">
+    <div class="card-title"><div class="icon">✅</div>Ringkasan Jawaban</div>
+    <div class="card-sub">Mohon periksa kembali jawaban Anda sebelum mengirim.</div>
+    <hr class="divider">
+    <div id="summaryContent"></div>
+    <hr class="divider">
+    <div style="background:var(--pale);border-radius:8px;padding:16px;margin-bottom:20px">
+      <p style="font-size:13px;line-height:1.7;color:var(--navy)">Dengan menekan tombol <strong>"Kirim Kuesioner"</strong>, saya menyatakan bahwa penilaian yang saya berikan didasarkan pada pengetahuan dan pengalaman profesional saya secara jujur dan bertanggung jawab.</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <button class="btn btn-secondary" onclick="goTo(3)">← Perbaiki Jawaban</button>
+      <button class="btn btn-primary" onclick="submitKuesioner()">✓ Kirim Kuesioner</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5 – TERIMA KASIH -->
+<div class="page" id="page5">
+  <div class="card" style="text-align:center;padding:48px 32px">
+    <div style="font-size:64px;margin-bottom:16px">🎉</div>
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:24px;margin-bottom:10px">Terima Kasih!</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.8;max-width:420px;margin:0 auto 24px">Jawaban Anda telah berhasil diterima dan akan sangat berharga bagi penelitian ini. Semoga penelitian ini dapat memberikan kontribusi nyata bagi perkembangan industri konstruksi.</p>
+    <button class="btn btn-primary" onclick="downloadJSON()" style="margin:0 auto">⬇ Unduh Data Jawaban (JSON)</button>
+    <div style="margin-top:12px">
+      <button class="btn btn-secondary" onclick="location.reload()" style="margin:0 auto;font-size:12px">Isi Ulang / Responden Lain</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════════
+const KRITERIA = [
+  {kode:"K1", nama:"Komitmen Manajemen dan Kepemimpinan"},
+  {kode:"K2", nama:"Pemahaman Lean Construction"},
+  {kode:"K3", nama:"Komunikasi dan Kolaborasi Antarpihak"},
+  {kode:"K4", nama:"Budaya Kerja Berbasis Continuous Improvement"},
+];
+const ALTERNATIF = [
+  {kode:"A1", nama:"Sosialisasi dan Pelatihan Lean Construction"},
+  {kode:"A2", nama:"Penerapan Sistem Koordinasi Rutin Proyek"},
+  {kode:"A3", nama:"Evaluasi dan Perbaikan Proses Berkelanjutan"},
+];
+
+// pasangan kriteria
+const KR_PAIRS = [];
+for(let i=0;i<KRITERIA.length;i++)
+  for(let j=i+1;j<KRITERIA.length;j++)
+    KR_PAIRS.push([i,j]);
+
+// pasangan alternatif
+const ALT_PAIRS = [];
+for(let i=0;i<ALTERNATIF.length;i++)
+  for(let j=i+1;j<ALTERNATIF.length;j++)
+    ALT_PAIRS.push([i,j]);
+
+// state
+const answers = { kriteria:{}, alternatif:{} };
+let currentPage = 0;
+const TOTAL_Q = KR_PAIRS.length + KRITERIA.length * ALT_PAIRS.length;
+let answeredCount = 0;
+
+// ═══════════════════════════════════════════════════════════════════
+// BUILD QUESTIONS
+// ═══════════════════════════════════════════════════════════════════
+function buildPairwiseWidget(containerId, pairs, leftItems, rightItems, namespace, questionPrefix) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  pairs.forEach(([li,ri], idx) => {
+    const left  = leftItems[li];
+    const right = rightItems[ri];
+    const key   = `${li}_${ri}`;
+    const qn    = idx + 1;
+
+    // scale buttons: 9L 8L 7L 6L 5L 4L 3L 2L | 1 | 2R 3R 4R 5R 6R 7R 8R 9R
+    // represent as: value 1..9 and side 'L' or 'R'
+    const scaleVals = [
+      {v:9,side:'L'},{v:8,side:'L'},{v:7,side:'L'},{v:6,side:'L'},
+      {v:5,side:'L'},{v:4,side:'L'},{v:3,side:'L'},{v:2,side:'L'},
+      {v:1,side:'C'},
+      {v:2,side:'R'},{v:3,side:'R'},{v:4,side:'R'},{v:5,side:'R'},
+      {v:6,side:'R'},{v:7,side:'R'},{v:8,side:'R'},{v:9,side:'R'},
+    ];
+
+    const btnHtml = scaleVals.map(({v,side}) => {
+      const cls = side==='C' ? 'scale-btn center-btn' : 'scale-btn';
+      const sideLabel = side==='C' ? '=' : (side==='L' ? '◀' : '▶');
+      return `<button type="button" class="${cls}" id="btn_${namespace}_${key}_${side}${v}"
+        onclick="selectScale('${namespace}','${key}','${side}',${v})"
+        title="${side==='C'?'Sama penting':side==='L'?left.nama+' lebih penting ('+v+')':right.nama+' lebih penting ('+v+')'}">
+        ${v}<span class="scale-side">${sideLabel}</span>
+      </button>`;
+    }).join('');
+
+    const div = document.createElement('div');
+    div.className = 'pw-wrap';
+    div.id = `pwwrap_${namespace}_${key}`;
+    div.innerHTML = `
+      <div class="pw-qnum">${questionPrefix} ${qn} dari ${pairs.length}</div>
+      <div class="pw-question">Manakah yang lebih ${namespace==='kriteria'?'penting':'diprioritaskan'} ?</div>
+      <div class="pw-labels">
+        <div class="pw-label-left"><span style="background:${namespace==='kriteria'?'var(--blue)':'var(--sky)'};color:#fff;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:700;margin-right:6px">${left.kode}</span>${left.nama}</div>
+        <div class="pw-vs">VS</div>
+        <div class="pw-label-right"><span style="background:${namespace==='kriteria'?'var(--blue)':'var(--sky)'};color:#fff;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:700;margin-right:6px">${right.kode}</span>${right.nama}</div>
+      </div>
+      <div class="scale-legend"><span>← Kiri lebih penting</span><span>Sama</span><span>Kanan lebih penting →</span></div>
+      <div class="pw-scale">${btnHtml}</div>
+      <div class="pw-alasan">
+        <label>Alasan / Justifikasi</label>
+        <textarea id="alasan_${namespace}_${key}" rows="2"
+          placeholder="Tuliskan secara singkat alasan atau pertimbangan profesional Anda untuk penilaian ini..."
+          oninput="checkAlasan('${namespace}','${key}')"></textarea>
+      </div>
+      <div class="pw-status"><div class="pw-status-bar" id="statusbar_${namespace}_${key}"></div></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function buildKriteriaQ() {
+  buildPairwiseWidget('kriteriaQuestions', KR_PAIRS, KRITERIA, KRITERIA, 'kriteria', 'Pertanyaan');
+}
+
+function buildAlternatifQ() {
+  const container = document.getElementById('alternatifQuestions');
+  container.innerHTML = '';
+  KRITERIA.forEach((k, ki) => {
+    const section = document.createElement('div');
+    section.className = 'kriteria-section';
+
+    const badge = document.createElement('div');
+    badge.className = 'kriteria-badge';
+    badge.innerHTML = `<span class="kode">${k.kode}</span><span class="nama">Berdasarkan kriteria: ${k.nama}</span>`;
+    section.appendChild(badge);
+
+    const subq = document.createElement('p');
+    subq.style.cssText='font-size:12px;color:var(--muted);font-style:italic;margin-bottom:12px';
+    subq.textContent = `Berdasarkan kriteria "${k.nama}", strategi manakah yang lebih diprioritaskan dalam meningkatkan implementasi Lean Construction?`;
+    section.appendChild(subq);
+
+    const ns = `alt_k${ki}`;
+    const inner = document.createElement('div');
+    inner.id = `altQ_k${ki}`;
+    section.appendChild(inner);
+    container.appendChild(section);
+
+    buildPairwiseWidget(`altQ_k${ki}`, ALT_PAIRS, ALTERNATIF, ALTERNATIF, ns, 'Pasangan');
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════════════════════════
+function selectScale(ns, key, side, val) {
+  // clear all buttons for this pair
+  const scaleVals = [
+    {v:9,side:'L'},{v:8,side:'L'},{v:7,side:'L'},{v:6,side:'L'},
+    {v:5,side:'L'},{v:4,side:'L'},{v:3,side:'L'},{v:2,side:'L'},
+    {v:1,side:'C'},
+    {v:2,side:'R'},{v:3,side:'R'},{v:4,side:'R'},{v:5,side:'R'},
+    {v:6,side:'R'},{v:7,side:'R'},{v:8,side:'R'},{v:9,side:'R'},
+  ];
+  scaleVals.forEach(({v,side:s}) => {
+    const btn = document.getElementById(`btn_${ns}_${key}_${s}${v}`);
+    if(btn) { btn.classList.remove('selected-left','selected-right'); }
+  });
+
+  const btn = document.getElementById(`btn_${ns}_${key}_${side}${val}`);
+  if(btn) btn.classList.add(side==='R' ? 'selected-right' : 'selected-left');
+
+  // store answer: positive value = left wins, negative = right wins, ±1 = equal
+  const stored = side==='R' ? -val : val;
+
+  if(ns === 'kriteria') {
+    if(!answers.kriteria[key]) answers.kriteria[key] = {};
+    const hadVal = answers.kriteria[key].val !== undefined;
+    answers.kriteria[key].val = stored;
+    if(!hadVal) answeredCount++;
+  } else {
+    if(!answers.alternatif[ns]) answers.alternatif[ns] = {};
+    if(!answers.alternatif[ns][key]) answers.alternatif[ns][key] = {};
+    const hadVal = answers.alternatif[ns][key].val !== undefined;
+    answers.alternatif[ns][key].val = stored;
+    if(!hadVal) answeredCount++;
+  }
+  updateStatus(ns, key);
+  updateProgress();
+}
+
+function checkAlasan(ns, key) {
+  updateStatus(ns, key);
+}
+
+function updateStatus(ns, key) {
+  const bar = document.getElementById(`statusbar_${ns}_${key}`);
+  if(!bar) return;
+  const hasVal = ns==='kriteria'
+    ? answers.kriteria[key]?.val !== undefined
+    : answers.alternatif[ns]?.[key]?.val !== undefined;
+  const alasan = document.getElementById(`alasan_${ns}_${key}`)?.value?.trim();
+  const hasAlasan = alasan && alasan.length > 5;
+
+  if(hasVal && hasAlasan) {
+    bar.className = 'pw-status-bar done';
+  } else if(hasVal || hasAlasan) {
+    bar.style.width = '50%';
+    bar.className = 'pw-status-bar';
+    bar.style.background = '#f0b429';
+  } else {
+    bar.className = 'pw-status-bar';
+    bar.style.width = '0%';
+  }
+}
+
+function updateProgress() {
+  const filled = Object.keys(answers.kriteria).filter(k=>answers.kriteria[k]?.val!==undefined).length
+    + Object.values(answers.alternatif).reduce((s,obj)=>s+Object.keys(obj).filter(k=>obj[k]?.val!==undefined).length, 0);
+  const pct = Math.round(filled/TOTAL_Q*100);
+  document.getElementById('progressBar').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = `${filled} dari ${TOTAL_Q} pertanyaan telah dijawab (${pct}%)`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
+function goTo(n) {
+  document.querySelectorAll('.page').forEach((p,i) => p.classList.toggle('active', i===n));
+  document.querySelectorAll('.step').forEach((s,i) => {
+    s.classList.remove('active','done');
+    if(i===n) s.classList.add('active');
+    else if(i<n) s.classList.add('done');
+  });
+  currentPage = n;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateIdentity() {
+  const fields = ['id_nama','id_jabatan','id_instansi','id_pengalaman','id_lean_exp','id_pendidikan'];
+  for(const f of fields) {
+    if(!document.getElementById(f).value.trim()) {
+      showToast('Mohon lengkapi semua kolom identitas yang bertanda *');
+      document.getElementById(f).focus();
+      return;
+    }
+  }
+  goTo(2);
+}
+
+function validateKriteria() {
+  for(const [li,ri] of KR_PAIRS) {
+    const key = `${li}_${ri}`;
+    if(answers.kriteria[key]?.val === undefined) {
+      showToast('Mohon jawab semua pertanyaan perbandingan kriteria terlebih dahulu');
+      document.getElementById(`pwwrap_kriteria_${key}`)?.scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
+    const alasan = document.getElementById(`alasan_kriteria_${key}`)?.value?.trim();
+    if(!alasan || alasan.length < 5) {
+      showToast('Mohon isi kolom alasan/justifikasi untuk setiap pertanyaan');
+      document.getElementById(`alasan_kriteria_${key}`)?.focus();
+      return;
+    }
+  }
+  goTo(3);
+}
+
+function validateAlternatif() {
+  for(let ki=0; ki<KRITERIA.length; ki++) {
+    const ns = `alt_k${ki}`;
+    for(const [li,ri] of ALT_PAIRS) {
+      const key = `${li}_${ri}`;
+      if(answers.alternatif[ns]?.[key]?.val === undefined) {
+        showToast(`Mohon jawab semua pertanyaan untuk kriteria ${KRITERIA[ki].kode}`);
+        document.getElementById(`pwwrap_${ns}_${key}`)?.scrollIntoView({behavior:'smooth',block:'center'});
+        return;
+      }
+      const alasan = document.getElementById(`alasan_${ns}_${key}`)?.value?.trim();
+      if(!alasan || alasan.length < 5) {
+        showToast('Mohon isi kolom alasan/justifikasi untuk setiap pertanyaan');
+        document.getElementById(`alasan_${ns}_${key}`)?.focus();
+        return;
+      }
+    }
+  }
+  buildSummary();
+  goTo(4);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SUMMARY
+// ═══════════════════════════════════════════════════════════════════
+function buildSummary() {
+  const id = document.getElementById('summaryContent');
+  let html = '';
+
+  // identitas
+  html += `<h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:12px">Data Responden</h3>`;
+  const idData = [
+    ['Nama', document.getElementById('id_nama').value],
+    ['Jabatan', document.getElementById('id_jabatan').value],
+    ['Instansi', document.getElementById('id_instansi').value],
+    ['Pengalaman Konstruksi', document.getElementById('id_pengalaman').value],
+    ['Pengalaman Lean', document.getElementById('id_lean_exp').value],
+    ['Pendidikan', document.getElementById('id_pendidikan').value],
+  ];
+  html += `<table class="result-table" style="margin-bottom:24px">${idData.map(([k,v])=>`<tr><td style="font-weight:600;width:40%">${k}</td><td>${v}</td></tr>`).join('')}</table>`;
+
+  // Matriks kriteria
+  html += `<h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin:20px 0 10px">Matriks Perbandingan Kriteria</h3>`;
+  html += buildMatrix(KRITERIA, (i,j) => {
+    if(i===j) return null;
+    if(i<j) { const k=`${i}_${j}`; return answers.kriteria[k]?.val; }
+    else { const k=`${j}_${i}`; const v=answers.kriteria[k]?.val; return v!==undefined?(v===1?1:-1/v):undefined; }
+  }, 'kriteria');
+
+  // Matriks per kriteria
+  for(let ki=0; ki<KRITERIA.length; ki++) {
+    const ns = `alt_k${ki}`;
+    html += `<h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin:20px 0 6px;font-size:15px">Matriks Alternatif – <span style="color:var(--blue)">${KRITERIA[ki].kode}: ${KRITERIA[ki].nama}</span></h3>`;
+    html += buildMatrix(ALTERNATIF, (i,j) => {
+      if(i===j) return null;
+      if(i<j) { const k=`${i}_${j}`; return answers.alternatif[ns]?.[k]?.val; }
+      else { const k=`${j}_${i}`; const v=answers.alternatif[ns]?.[k]?.val; return v!==undefined?(v===1?1:-1/v):undefined; }
+    }, `alt_k${ki}`);
+  }
+
+  id.innerHTML = html;
+}
+
+function buildMatrix(items, getValue, ns) {
+  const n = items.length;
+  let html = `<div style="overflow-x:auto"><table class="result-matrix" style="margin-bottom:12px">`;
+  html += `<tr><th></th>${items.map(it=>`<th>${it.kode}</th>`).join('')}</tr>`;
+  for(let i=0;i<n;i++) {
+    html += `<tr><th style="text-align:left;padding:7px 10px;font-size:11px">${items[i].kode}</th>`;
+    for(let j=0;j<n;j++) {
+      if(i===j) { html+=`<td class="diag">1</td>`; continue; }
+      const v = getValue(i,j);
+      if(v===undefined) { html+=`<td>–</td>`; continue; }
+      const display = v===1?'1':(v>0?v.toFixed(2):`1/${Math.abs(Math.round(1/v))}`);
+      html += `<td class="${v>=1?'val-left':'val-right'}">${display}</td>`;
+    }
+    html += `</tr>`;
+  }
+  html += `</table></div>`;
+  return html;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════════════════════════════
+function submitKuesioner() {
+  // collect alasan
+  KR_PAIRS.forEach(([li,ri]) => {
+    const key=`${li}_${ri}`;
+    if(!answers.kriteria[key]) answers.kriteria[key]={};
+    answers.kriteria[key].alasan = document.getElementById(`alasan_kriteria_${key}`)?.value?.trim();
+  });
+  KRITERIA.forEach((_,ki) => {
+    const ns=`alt_k${ki}`;
+    ALT_PAIRS.forEach(([li,ri]) => {
+      const key=`${li}_${ri}`;
+      if(!answers.alternatif[ns]) answers.alternatif[ns]={};
+      if(!answers.alternatif[ns][key]) answers.alternatif[ns][key]={};
+      answers.alternatif[ns][key].alasan = document.getElementById(`alasan_${ns}_${key}`)?.value?.trim();
+    });
+  });
+  goTo(5);
+  showToast('Kuesioner berhasil dikirim! Terima kasih.');
+}
+
+function downloadJSON() {
+  const identitas = {
+    nama: document.getElementById('id_nama').value,
+    jabatan: document.getElementById('id_jabatan').value,
+    instansi: document.getElementById('id_instansi').value,
+    pengalaman: document.getElementById('id_pengalaman').value,
+    lean_exp: document.getElementById('id_lean_exp').value,
+    pendidikan: document.getElementById('id_pendidikan').value,
+  };
+  const data = { identitas, answers, timestamp: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `ahp_lean_${identitas.nama.replace(/\s+/g,'_')}.json`;
+  a.click();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════
+buildKriteriaQ();
+buildAlternatifQ();
+updateProgress();
+</script>
+</body>
+</html>
