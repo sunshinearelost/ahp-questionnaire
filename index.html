@@ -25,10 +25,8 @@
 html{scroll-behavior:smooth}
 body{font-family:'Source Sans 3',sans-serif;background:#e6eef8;color:var(--text);min-height:100vh}
 
-/* ── layout ── */
 .wrapper{max-width:860px;margin:0 auto;padding:28px 16px 60px}
 
-/* ── hero ── */
 .hero{background:linear-gradient(135deg,var(--navy) 0%,#25487a 60%,#1e5a96 100%);border-radius:20px;padding:48px 40px 40px;margin-bottom:32px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.05)}
 .hero::after{content:'';position:absolute;bottom:-40px;left:20px;width:160px;height:160px;border-radius:50%;background:rgba(74,159,212,.12)}
@@ -40,19 +38,16 @@ body{font-family:'Source Sans 3',sans-serif;background:#e6eef8;color:var(--text)
 .progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),#e8c46a);border-radius:20px;transition:width .5s ease;width:0%}
 .progress-label{margin-top:8px;font-size:12px;color:rgba(255,255,255,.6)}
 
-/* ── card ── */
 .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 32px;margin-bottom:20px;border:1px solid rgba(200,220,240,.6)}
 .card-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:6px;display:flex;align-items:center;gap:10px}
 .card-title .icon{width:32px;height:32px;border-radius:8px;background:var(--pale);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .card-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6}
 .divider{border:none;border-top:1px solid var(--border);margin:20px 0}
 
-/* ── section label ── */
 .section-header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:10px;padding:16px 22px;margin-bottom:24px}
 .section-header h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600}
 .section-header p{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px}
 
-/* ── identity form ── */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-group{display:flex;flex-direction:column;gap:5px}
 .form-group.full{grid-column:1/-1}
@@ -61,14 +56,12 @@ input,select,textarea{font-family:'Source Sans 3',sans-serif;font-size:14px;colo
 input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,168,.12);background:#fff}
 textarea{resize:vertical;min-height:60px}
 
-/* ── skala referensi ── */
-.scale-ref{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px}
-.scale-ref-item{flex:1;text-align:center;padding:6px 4px;background:var(--pale2);border-right:1px solid var(--border);font-size:10px;color:var(--muted)}
+.scale-ref{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px;flex-wrap:wrap}
+.scale-ref-item{flex:1;text-align:center;padding:6px 4px;background:var(--pale2);border-right:1px solid var(--border);font-size:10px;color:var(--muted);min-width:80px}
 .scale-ref-item:last-child{border-right:none}
 .scale-ref-item strong{display:block;font-size:13px;color:var(--navy);font-weight:700}
 .scale-ref-item.center-item{background:var(--pale);color:var(--navy)}
 
-/* ── pairwise widget ── */
 .pw-wrap{margin-bottom:28px;padding:22px;background:var(--pale2);border-radius:12px;border:1px solid var(--border)}
 .pw-qnum{font-size:11px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
 .pw-question{font-size:14px;color:var(--muted);margin-bottom:16px;font-style:italic}
@@ -77,7 +70,7 @@ textarea{resize:vertical;min-height:60px}
 .pw-label-left{text-align:right}
 .pw-label-right{text-align:left}
 .pw-vs{font-size:11px;font-weight:700;color:var(--muted);text-align:center;background:var(--pale);border-radius:6px;padding:4px 8px}
-/* scale buttons */
+
 .pw-scale{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
 .scale-btn{width:40px;height:40px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;position:relative}
 .scale-btn .scale-side{font-size:7px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
@@ -89,7 +82,7 @@ textarea{resize:vertical;min-height:60px}
 .scale-btn.center-btn{background:var(--pale);border-color:var(--border)}
 .scale-btn.center-btn.selected-left,.scale-btn.center-btn.selected-right{background:#6b8fa8;border-color:#6b8fa8;color:#fff}
 .scale-legend{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:10px;padding:0 2px}
-/* alasan */
+
 .pw-alasan label{font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:5px}
 .pw-alasan label::after{content:'*';color:#e05252}
 .pw-alasan textarea{width:100%;font-size:13px;margin-top:5px;background:#fff}
@@ -97,13 +90,11 @@ textarea{resize:vertical;min-height:60px}
 .pw-status-bar{height:100%;width:0%;background:var(--gold);border-radius:3px;transition:width .3s}
 .pw-status-bar.done{background:#4caf50;width:100%}
 
-/* ── sub-section per kriteria ── */
 .kriteria-section{margin-bottom:36px}
 .kriteria-badge{display:inline-flex;align-items:center;gap:8px;background:var(--pale);border:1.5px solid var(--blue);border-radius:8px;padding:8px 16px;margin-bottom:16px}
 .kriteria-badge .kode{background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px}
 .kriteria-badge .nama{font-size:13px;font-weight:600;color:var(--navy)}
 
-/* ── btn ── */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
 .btn-primary{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;box-shadow:0 4px 14px rgba(26,46,74,.25)}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,46,74,.35)}
@@ -112,7 +103,6 @@ textarea{resize:vertical;min-height:60px}
 .btn-block{width:100%;justify-content:center;padding:14px}
 .btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
 
-/* ── steps nav ── */
 .steps{display:flex;gap:0;margin-bottom:28px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
 .step{flex:1;padding:10px 6px;text-align:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;cursor:default;border-right:1px solid var(--border);transition:all .2s}
 .step:last-child{border-right:none}
@@ -120,12 +110,9 @@ textarea{resize:vertical;min-height:60px}
 .step.done{background:var(--pale);color:var(--blue)}
 .step-num{display:block;font-size:14px;font-weight:700;margin-bottom:2px}
 
-/* ── page sections ── */
 .page{display:none}
 .page.active{display:block}
 
-/* ── result ── */
-.result-section{margin-bottom:24px}
 .result-table{width:100%;border-collapse:collapse;font-size:13px}
 .result-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left}
 .result-table td{padding:9px 14px;border-bottom:1px solid var(--border)}
@@ -136,17 +123,19 @@ textarea{resize:vertical;min-height:60px}
 .result-matrix td.diag{background:var(--pale);font-weight:700;color:var(--navy)}
 .result-matrix td.val-left{background:#e8f2fb;color:var(--blue);font-weight:600}
 .result-matrix td.val-right{background:#fef9e7;color:#a0760a;font-weight:600}
-.chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.chip-gold{background:#fef3cd;color:#a0760a}
-.chip-blue{background:var(--pale);color:var(--blue)}
 
-/* ── toast ── */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 
-/* ── misc ── */
 .req-note{font-size:11px;color:#e05252;margin-top:6px}
 .italic-note{font-size:12px;color:var(--muted);font-style:italic}
+
+.loader{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;text-align:center;background:#fff;padding:40px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+.loader.show{display:block}
+.loader-spinner{border:4px solid var(--pale);border-top:4px solid var(--blue);border-radius:50%;width:40px;height:40px;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.loader-text{color:var(--text);font-weight:600;font-size:14px}
+
 @media(max-width:600px){
   .form-grid{grid-template-columns:1fr}
   .hero{padding:32px 20px 28px}
@@ -180,7 +169,7 @@ textarea{resize:vertical;min-height:60px}
   <div class="step" id="step4"><span class="step-num">⑤</span>Hasil</div>
 </div>
 
-<!-- ═══ PAGE 0 – PENGANTAR ═══ -->
+<!-- PAGE 0 – PENGANTAR -->
 <div class="page active" id="page0">
   <div class="card">
     <div class="card-title"><div class="icon">📋</div>Pengantar Penelitian</div>
@@ -221,7 +210,7 @@ textarea{resize:vertical;min-height:60px}
     <div class="section-header" style="margin-bottom:12px">
       <h2>📏 Skala Penilaian AHP (Saaty, 1980)</h2>
     </div>
-    <div class="scale-ref" style="flex-wrap:wrap">
+    <div class="scale-ref">
       <div class="scale-ref-item"><strong>9</strong>Mutlak lebih penting</div>
       <div class="scale-ref-item"><strong>7</strong>Sangat lebih penting</div>
       <div class="scale-ref-item"><strong>5</strong>Lebih penting</div>
@@ -240,7 +229,7 @@ textarea{resize:vertical;min-height:60px}
   </div>
 </div>
 
-<!-- ═══ PAGE 1 – IDENTITAS ═══ -->
+<!-- PAGE 1 – IDENTITAS -->
 <div class="page" id="page1">
   <div class="card">
     <div class="card-title"><div class="icon">👤</div>Identitas Responden</div>
@@ -300,7 +289,7 @@ textarea{resize:vertical;min-height:60px}
   </div>
 </div>
 
-<!-- ═══ PAGE 2 – KRITERIA ═══ -->
+<!-- PAGE 2 – KRITERIA -->
 <div class="page" id="page2">
   <div class="card">
     <div class="section-header">
@@ -320,7 +309,7 @@ textarea{resize:vertical;min-height:60px}
   </div>
 </div>
 
-<!-- ═══ PAGE 3 – ALTERNATIF ═══ -->
+<!-- PAGE 3 – ALTERNATIF -->
 <div class="page" id="page3">
   <div class="card">
     <div class="section-header">
@@ -339,7 +328,7 @@ textarea{resize:vertical;min-height:60px}
   </div>
 </div>
 
-<!-- ═══ PAGE 4 – HASIL ═══ -->
+<!-- PAGE 4 – HASIL -->
 <div class="page" id="page4">
   <div class="card">
     <div class="card-title"><div class="icon">✅</div>Ringkasan Jawaban</div>
@@ -363,15 +352,17 @@ textarea{resize:vertical;min-height:60px}
     <div style="font-size:64px;margin-bottom:16px">🎉</div>
     <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:24px;margin-bottom:10px">Terima Kasih!</h2>
     <p style="color:var(--muted);font-size:14px;line-height:1.8;max-width:420px;margin:0 auto 24px">Jawaban Anda telah berhasil diterima dan akan sangat berharga bagi penelitian ini. Semoga penelitian ini dapat memberikan kontribusi nyata bagi perkembangan industri konstruksi.</p>
-    <button class="btn btn-primary" onclick="downloadJSON()" style="margin:0 auto">⬇ Unduh Data Jawaban (JSON)</button>
-    <div style="margin-top:12px">
-      <button class="btn btn-secondary" onclick="location.reload()" style="margin:0 auto;font-size:12px">Isi Ulang / Responden Lain</button>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="downloadJSON()">⬇ Unduh Data Jawaban (JSON)</button>
+      <button class="btn btn-secondary" onclick="location.reload()" style="font-size:12px">Isi Ulang / Responden Lain</button>
     </div>
   </div>
 </div>
 
 </div><!-- /wrapper -->
+
 <div class="toast" id="toast"></div>
+<div class="loader" id="loader"><div class="loader-spinner"></div><div class="loader-text">Mengirim data...</div></div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════════
@@ -389,19 +380,16 @@ const ALTERNATIF = [
   {kode:"A3", nama:"Evaluasi dan Perbaikan Proses Berkelanjutan"},
 ];
 
-// pasangan kriteria
 const KR_PAIRS = [];
 for(let i=0;i<KRITERIA.length;i++)
   for(let j=i+1;j<KRITERIA.length;j++)
     KR_PAIRS.push([i,j]);
 
-// pasangan alternatif
 const ALT_PAIRS = [];
 for(let i=0;i<ALTERNATIF.length;i++)
   for(let j=i+1;j<ALTERNATIF.length;j++)
     ALT_PAIRS.push([i,j]);
 
-// state
 const answers = { kriteria:{}, alternatif:{} };
 let currentPage = 0;
 const TOTAL_Q = KR_PAIRS.length + KRITERIA.length * ALT_PAIRS.length;
@@ -419,8 +407,6 @@ function buildPairwiseWidget(containerId, pairs, leftItems, rightItems, namespac
     const key   = `${li}_${ri}`;
     const qn    = idx + 1;
 
-    // scale buttons: 9L 8L 7L 6L 5L 4L 3L 2L | 1 | 2R 3R 4R 5R 6R 7R 8R 9R
-    // represent as: value 1..9 and side 'L' or 'R'
     const scaleVals = [
       {v:9,side:'L'},{v:8,side:'L'},{v:7,side:'L'},{v:6,side:'L'},
       {v:5,side:'L'},{v:4,side:'L'},{v:3,side:'L'},{v:2,side:'L'},
@@ -499,7 +485,6 @@ function buildAlternatifQ() {
 // INTERACTIONS
 // ═══════════════════════════════════════════════════════════════════
 function selectScale(ns, key, side, val) {
-  // clear all buttons for this pair
   const scaleVals = [
     {v:9,side:'L'},{v:8,side:'L'},{v:7,side:'L'},{v:6,side:'L'},
     {v:5,side:'L'},{v:4,side:'L'},{v:3,side:'L'},{v:2,side:'L'},
@@ -515,7 +500,6 @@ function selectScale(ns, key, side, val) {
   const btn = document.getElementById(`btn_${ns}_${key}_${side}${val}`);
   if(btn) btn.classList.add(side==='R' ? 'selected-right' : 'selected-left');
 
-  // store answer: positive value = left wins, negative = right wins, ±1 = equal
   const stored = side==='R' ? -val : val;
 
   if(ns === 'kriteria') {
@@ -640,7 +624,6 @@ function buildSummary() {
   const id = document.getElementById('summaryContent');
   let html = '';
 
-  // identitas
   html += `<h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:12px">Data Responden</h3>`;
   const idData = [
     ['Nama', document.getElementById('id_nama').value],
@@ -652,7 +635,6 @@ function buildSummary() {
   ];
   html += `<table class="result-table" style="margin-bottom:24px">${idData.map(([k,v])=>`<tr><td style="font-weight:600;width:40%">${k}</td><td>${v}</td></tr>`).join('')}</table>`;
 
-  // Matriks kriteria
   html += `<h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin:20px 0 10px">Matriks Perbandingan Kriteria</h3>`;
   html += buildMatrix(KRITERIA, (i,j) => {
     if(i===j) return null;
@@ -660,7 +642,6 @@ function buildSummary() {
     else { const k=`${j}_${i}`; const v=answers.kriteria[k]?.val; return v!==undefined?(v===1?1:-1/v):undefined; }
   }, 'kriteria');
 
-  // Matriks per kriteria
   for(let ki=0; ki<KRITERIA.length; ki++) {
     const ns = `alt_k${ki}`;
     html += `<h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin:20px 0 6px;font-size:15px">Matriks Alternatif – <span style="color:var(--blue)">${KRITERIA[ki].kode}: ${KRITERIA[ki].nama}</span></h3>`;
@@ -697,13 +678,11 @@ function buildMatrix(items, getValue, ns) {
 // SUBMIT
 // ═══════════════════════════════════════════════════════════════════
 async function submitKuesioner() {
-
-  // collect alasan — FIXED: KR_PAIRS (bukan KRPAIRS), backtick lengkap, quote benar
   KR_PAIRS.forEach(([li, ri]) => {
     const key = `${li}_${ri}`;
     if (!answers.kriteria[key]) answers.kriteria[key] = {};
     answers.kriteria[key].alasan =
-      document.getElementById(`alasan_kriteria_${key}`)?.value?.trim();
+      document.getElementById(`alasan_kriteria_${key}`)?.value?.trim() || '';
   });
 
   KRITERIA.forEach((_, ki) => {
@@ -713,7 +692,7 @@ async function submitKuesioner() {
       if (!answers.alternatif[ns]) answers.alternatif[ns] = {};
       if (!answers.alternatif[ns][key]) answers.alternatif[ns][key] = {};
       answers.alternatif[ns][key].alasan =
-        document.getElementById(`alasan_${ns}_${key}`)?.value?.trim();
+        document.getElementById(`alasan_${ns}_${key}`)?.value?.trim() || '';
     });
   });
 
@@ -730,17 +709,36 @@ async function submitKuesioner() {
     timestamp: new Date().toISOString()
   };
 
+  showLoader(true);
+
+  const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxACoPqbn0AdqystyVtleEl1StVozP7elSYHDB__bMlF42CQ1gvHFIuKk3wLuvW3WxiVQ/exec";
+
   try {
-    await fetch("https://script.google.com/macros/s/AKfycbxACoPqbn0AdqystyVtleEl1StVozP7elSYHDB__bMlF42CQ1gvHFIuKk3wLuvW3WxiVQ/exec", {
+    const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
+      mode: "no-cors",
       body: JSON.stringify(data)
     });
+    
+    showLoader(false);
     goTo(5);
-    showToast('Kuesioner berhasil dikirim!');
+    showToast('✓ Data berhasil dikirim!');
+    
   } catch (err) {
-    console.error(err);
-    showToast('Gagal mengirim data');
+    console.error('Google Apps Script error:', err);
+    showLoader(false);
+    
+    showToast('⚠ Server sedang sibuk. Data akan diunduh otomatis sebagai backup.');
+    downloadJSON();
+    
+    setTimeout(() => {
+      goTo(5);
+    }, 2000);
   }
+}
+
+function showLoader(show) {
+  document.getElementById('loader').classList.toggle('show', show);
 }
 
 function downloadJSON() {
@@ -756,8 +754,9 @@ function downloadJSON() {
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `ahp_lean_${identitas.nama.replace(/\s+/g,'_')}.json`;
+  a.download = `ahp_lean_${identitas.nama.replace(/\s+/g,'_')}_${new Date().getTime()}.json`;
   a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -767,7 +766,7 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  setTimeout(() => t.classList.remove('show'), 4000);
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -779,4 +778,3 @@ updateProgress();
 </script>
 </body>
 </html>
-// test
